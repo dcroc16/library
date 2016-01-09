@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+    <head>
+        <title>All About Me</title>
+        <style>
+            #book{
+                height: 500px;
+                width: 600px;
+            }
+            img{
+                width: 950px;
+                height: 640px;
+            }
+            #big_wrapper{
+                margin: 0 auto;
+                width: 75%;
+                height: 640;
+                padding: 0;
+            }
+            body{
+                background-color: #303030;
+            }
+            #words1{
+                position: absolute;
+                top: 200px;
+                left: 300px;
+            }
+            #words2{
+                position: absolute;
+                top: 200px;
+                left: 700px;
+            }
+            #nextPage{
+                position: absolute;
+                top: 130px;
+                left: 950px;
+            }
+        </style>
+        <script type='text/javascript'>
+            var story = {
+
+                'page1': 'this is page 1',
+                'page2': 'this is page2',
+                'page3': 'this is page3'
+            }
+
+
+        </script>
+    </head>
+    <body>
+        <a href='/{{page2}}'><h3>Lexi.com</h3></a>
+        <div id='big_wrapper'>
+        <div id='book'>
+            <img src='http://4.bp.blogspot.com/-nIMUvInVTeA/T_2VO1w1pLI/AAAAAAAACXk/3kiQqlet7zE/s1600/Blank+journal.jpg' />
+            <div id='words1'>
+                {{ words1 }}
+            </div>
+            <div id='words2'>
+                {{ words2 }}
+            </div>
+            <div id='nextPage'>
+                <a href='/'>next page</a>
+            </div>
+        </div>
+        </div>
+    </body>
+</html>

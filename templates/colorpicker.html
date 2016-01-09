@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+
+    <head>
+        <title>Color Picker</title>
+        <style>
+            body{
+                background-color: #303030;
+                margin:0 auto;
+            }
+            div{
+                //border: 1px solid #303030;
+                display: inline-block;
+                float: left;
+                height: 45px;
+                width: 80px;
+                text-align: center;
+                font-size: 10px;
+                color: White;
+                font-family: Helvetica;
+                padding-top: 35px;
+
+            }
+            #Control{
+                display:block;
+                margin: 10px;
+
+            }
+            #colorArea{
+                width:100%;
+                margin:0;
+                display:block;
+            }
+            h1{
+                color: White;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+         <h1>Color Picker</h1>
+        <span id="Control">
+            <select id="mainColorOption">
+                <option>Choose a Base Color</option>
+                <option>Red</option>
+                <option>Green</option>
+                <option>Blue</option>
+            </select>
+
+
+        </span>
+        <div id="colorArea"></div>
+        <script type='text/javascript'>
+
+            function randomColors(){
+                var cube;
+                var colorArea = document.getElementById("colorArea");
+                colorArea.innerHTML = '';
+                colorArea.style.width = screen.width;
+                for(var i = 256; i>0; i--){
+                    cube = document.createElement('div');
+                    cube.innerHTML = "rgb(" + Math.floor(i * Math.random()) + "," + Math.floor(i * Math.random()) + ","+ Math.floor(i * Math.random()) +")";
+                    cube.style.backgroundColor = "rgb(" + Math.floor(i * Math.random()) + "," + Math.floor(i * Math.random()) + ","+ Math.floor(i * Math.random()) +")";
+                    colorArea.appendChild(cube);
+                }
+            }
+
+            var picker = document.getElementById('mainColorOption');
+
+            picker.addEventListener('change', function(e){
+                if(this.value === "Choose a Base Color"){
+                    randomColors();
+                }else if(this.value==="Red"){
+                    colorArea.innerHTML = "";
+                    var cube;
+                    for(var i = 0; i<174; i+=20){
+                        for(var j = 0; j<174; j+=20){
+
+                                cube = document.createElement('div');
+                                cube.innerHTML = "rgb(" + 200+ "," + i + ","+ j +")";
+                                cube.style.backgroundColor = "rgb(" + 200 + "," + i + ","+ j +")";
+                                colorArea.appendChild(cube);
+
+                        }
+                    }
+
+                }else if(this.value==="Green"){
+                    colorArea.innerHTML = "";
+                    var cube;
+                    for(var i = 0; i<174; i+=20){
+                        for(var j = 0; j<174; j+=20){
+
+                                cube = document.createElement('div');
+                                cube.innerHTML = "rgb(" + i + "," + 200 + ","+ j +")";
+                                cube.style.backgroundColor = "rgb(" + i + "," + 200 + ","+ j +")";
+                                colorArea.appendChild(cube);
+
+                        }
+                    }
+
+                }else if(this.value==="Blue"){
+                    colorArea.innerHTML = "";
+                    var cube;
+                    for(var i = 0; i<174; i+=20){
+                        for(var j = 0; j<174; j+=20){
+
+                                cube = document.createElement('div');
+                                cube.innerHTML = "rgb(" + i + "," + j + ","+ 200 +")";
+                                cube.style.backgroundColor = "rgb(" + i + "," + j + ","+ 200 +")";
+                                colorArea.appendChild(cube);
+
+                        }
+                    }
+                }
+
+            });
+
+            randomColors();
+
+        </script>
+
+    </body>
+</html>

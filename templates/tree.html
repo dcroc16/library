@@ -1,0 +1,216 @@
+<!doctype html>
+<html>
+	<head>
+		<title>build your own tree</title>
+		<style>
+			#canvas{
+				border: 1px solid #303030;
+				margin: 0 auto;
+				display: block;
+			}
+			body{
+				margin: 0 auto;
+				text-align: center;
+			}
+			#titleRow{
+				height: 50px;
+				background-color: #303030;
+				color: white;
+				margin-bottom: 10px;
+				font-size: 24px;
+				padding-top: 20px;
+			}
+			.type{
+				background-color: blue;
+				height: 25px;
+				width: 150px;
+				margin: 10px;
+				display: inline;
+				float: left;
+				border-radius: 5px;
+				padding: 0;
+				padding-top: 5px;
+			}
+			.type:hover{
+				background-color: red;
+				color: white;
+			}
+			#buttonRow{
+				display: block;
+				height: 75px;
+				margin: 0 auto;
+			}
+			.active{
+				background-color: red;
+				border: 2px soild blue;
+				color: white;
+
+			}
+		</style>
+	</head>
+	<body>
+		<div id='titleRow'>Make your own Tree</div>
+		<div id='buttonRow'>
+			<div id='branch' class='type'>branch</div>
+			<div id='leaf' class='type'>leaf</div>
+		</div>
+		<div id='canvasArea'>
+			<canvas id='canvas' width='500' height='500'></canvas>
+		</div>
+		<script type='text/javascript'>
+			window.addEventListener('load', function(){
+				var canvas = document.getElementById('canvas');
+				var ctx = canvas.getContext('2d');
+
+
+				var choice = document.getElementsByClassName('type');
+
+				for(var i = 0; i < choice.length; i++){
+					console.log(choice[i].innerHTML);
+				}
+
+			var trunk = function(){
+
+				ctx.fillStyle = 'rgb(80,120,200)';
+				ctx.fillRect(0,0,500, 500);
+
+				ctx.fillStyle = 'rgb(80,200,0)';
+				ctx.fillRect(0,450,500, 75);
+
+				ctx.beginPath();
+				ctx.moveTo(0,450);
+				ctx.lineTo(500,450);
+				ctx.stroke();
+
+				ctx.fillStyle = 'rgb(204, 102, 0)';
+				ctx.fillRect(230,255,40,200);
+
+			}
+
+			var leaf = function(context, x, y, length){
+
+				this.context = context;
+				this.x = x;
+				this.y = y;
+
+				this.addRight = function(){
+
+					this.context.strokeStyle = 'rgb(0, 204, 0)'
+					this.context.fillStyle = 'rgb(0, 204, 0)'
+					this.context.beginPath();
+					this.context.moveTo(this.x,this.y);
+					this.context.lineTo(this.x + 35, this.y + length);
+					this.context.lineTo(this.x,this.y - 15);
+					this.context.lineTo(this.x, this.y);
+					this.context.fill();
+					this.context.stroke();
+
+				}
+
+				this.addLeft = function(){
+
+					this.context.strokeStyle = 'rgb(0, 204, 0)'
+					this.context.fillStyle = 'rgb(0, 204, 0)'
+					this.context.beginPath();
+					this.context.moveTo(this.x,this.y);
+					this.context.lineTo(this.x -30, this.y - length);
+					this.context.lineTo(this.x,this.y - 15);
+					this.context.lineTo(this.x, this.y);
+					this.context.fill();
+					this.context.stroke();
+
+
+
+				}
+
+			}
+
+			var branch = function(context, x, y, length){
+
+				this.context = context;
+				this.x = x;
+				this.y = y;
+
+				this.addRight = function(){
+
+					this.context.strokeStyle = 'rgb(204, 102, 0)';
+					this.context.fillStyle = 'rgb(204, 102, 0)';
+					this.context.beginPath();
+					this.context.moveTo(this.x,this.y);
+					this.context.lineTo(this.x + 30, this.y - length);
+					this.context.lineTo(this.x + 30, this.y - length - 10);
+					this.context.lineTo(this.x,this.y - 15);
+					this.context.lineTo(this.x, this.y);
+					this.context.fill();
+					this.context.stroke();
+
+				}
+
+				this.addLeft = function(){
+
+					this.context.strokeStyle = 'rgb(204, 102, 0)';
+					this.context.fillStyle = 'rgb(204, 102, 0)';
+					this.context.beginPath();
+					this.context.moveTo(this.x,this.y);
+					this.context.lineTo(this.x -30, this.y - length);
+					this.context.lineTo(this.x -30, this.y - length - 10);
+					this.context.lineTo(this.x,this.y - 15);
+					this.context.lineTo(this.x, this.y);
+					this.context.fill();
+					this.context.stroke();
+
+
+
+				}
+			};
+
+			var trunk = new trunk();
+
+			var l = document.getElementById('leaf');
+
+			l.addEventListener('click', function(e){
+				l.classList.add('active')
+				document.getElementById('branch').classList.remove('active');
+
+			});
+
+			var b = document.getElementById('branch');
+
+			b.addEventListener('click', function(e){
+				b.classList.add('active');
+				document.getElementById('leaf').classList.remove('active');
+
+			});
+
+			canvas.addEventListener('click',function(e){
+
+				var b4 = new branch(ctx, e.clientX - 425, e.clientY - 135, 100);
+				var l1 = new leaf(ctx, e.clientX -425, e.clientY - 135, 30)
+
+				var choice = document.getElementsByClassName('active');
+
+
+
+				if(e.clientX > (screen.width/2)){
+					if(choice[0].innerHTML==='branch'){
+						b4.addRight();
+					}else{
+						l1.addRight();
+					}
+				}else{
+					if(choice[0].innerHTML==='branch'){
+						b4.addLeft();
+					}else{
+						l1.addLeft();
+					}
+				}
+
+
+			});
+
+
+
+			},false);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,276 @@
+<!Doctype html>
+<html>
+    <head>
+       <script src="https://code.jquery.com/jquery-2.1.4.min.js" ></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+        <link href='https://fonts.googleapis.com/css?family=Sigmar+One' rel='stylesheet' type='text/css'>
+        <script>
+            var changeHeader = function(img){
+
+                document.getElementById("headerImage").src = img.src;
+
+                var data = img.id.split(",");
+                document.getElementById("bID").value = data[0];
+                document.getElementById("deleteID").value = data[0];
+                document.getElementById("title").innerHTML = data[1];
+                document.getElementById("author").innerHTML = data[2];
+                document.getElementById("format").innerHTML = data[3];
+                document.getElementById("isbn").innerHTML = data[4];
+                document.getElementById("publisher").innerHTML = data[5];
+            }
+
+            var pickRandomBook = function(){
+                var img = document.getElementsByClassName('book_img');
+                //console.log(img.length);
+                var randomNumber = 0
+                randomNumber = Math.floor(Math.random() * img.length)
+                console.log(randomNumber);
+                changeHeader(img[randomNumber]);
+
+            }
+            $(document).ready(function(e){
+                var x = window.location.href;
+                if(x.indexOf('GetPassword') > 0){
+
+                }else{
+                //pickRandomBook();
+                }
+            })
+        </script>
+        <style type="text/css">
+            table{
+            border-collapse: collapse;
+            margin-top: 20px;
+            }
+            th, td{
+
+                font-size: 12px;
+                border: 1px solid purple;
+                padding: 5px;
+
+            }
+            #info{
+                display: inline;
+                padding: 10px
+                float: right;
+
+                width: 300px;
+
+            }
+            #headerPic{
+                display: inline;
+                padding-left: 10px;
+                float: right;
+
+                width: 300px;
+            }
+
+            #mainHead{
+
+                background-color: #303030;
+                color: White;
+                margin-left: 0;
+                margin-right: 0;
+                margin-top: 0;
+                height: 45px;
+                margin-bottom: 10px;
+                padding: 10px;
+
+
+
+            }
+            #bookID{
+
+                display:none;
+            }
+            #deleteID{
+
+                display:none;
+            }
+            body{
+                background-color: #ffe5ff;
+            }
+
+            #RandomBook{
+
+                border-radius: 10px;
+                border: 2px solid white;
+                background-color: blue;
+                display: inline;
+                float: right;
+                font-family: cursive;
+                width: 200px;
+                text-align: center;
+                padding: 10px;
+                margin-right: 70px;
+
+            }
+            #NewBook{
+
+                border-radius: 10px;
+                border: 2px solid white;
+                background-color: blue;
+                display: inline;
+                float: right;
+                font-family: cursive;
+                width: 200px;
+                text-align: center;
+                padding: 10px;
+                margin-right: 20px;
+
+            }
+            #RandomBook:hover{
+
+                opacity: .7;
+
+            }
+            #NewBook:hover{
+
+                opacity: .7;
+
+            }
+            #headerTitle{
+
+                display: inline
+                width: 400px;
+                float: left;
+                margin-right: 20px;
+                font-family: 'Sigmar One', cursive;
+                font-size: 24px;
+                padding-bottom: 10px;
+
+            }
+            a{
+
+            text-decoration: none;
+            color: white;
+
+
+            }
+            a:visited{
+
+                color: white;
+            }
+            #newBook{
+
+                height: 100px;
+
+
+            }
+
+            form{
+
+                margin-top: 10px;
+
+            }
+
+            #newCoverArt{
+
+                height: 100px;
+                width: 100px;
+
+            }
+
+            .stats{
+                padding: 10px;
+                font-family: 'Sigmar One', cursive;
+
+            }
+
+        </style>
+    </head>
+    <body>
+    <div id="mainHead"><a href="/Abby"><div id="headerTitle">Abby's Personal Library</div></a>
+        <div id="RandomBook" onclick="pickRandomBook()">Choose a Random Book</div>
+       <a href="/EnterBookAbby" ><div id="NewBook" >Enter a New Book</div></a>
+    </div>
+    <div class='stats'>There are {{ total_books }} books in your library! {{ count_of_books }} books with pictures and {{ count_books_no_pic }} books with no pictures.</div>
+    {% if msg=='Not Found' %}
+        <div class='msg'>{{msg}}</div>
+    {% endif %}
+    {% if newBook %}
+    <div id="showNewBook">
+        <strong>New Book</strong>
+        <div id="newISBN">Title: {{newBook[0]}}</div>
+        <div id="newAuthor">Author: {{newBook[1]}}</div>
+        <div id="newFormat">Format: {{newBook[7]}}</div>
+        <div id="newISBN">ISBN: {{newBook[2]}}</div>
+        <div id="newPublisher">Publisher: {{newBook[5]}}</div>
+        <div id="newCover">Cover: <img src="{{newBook[3]}}" id="newCoverArt"/></div>
+    </div>
+    {% endif %}
+    {% if enterNewBook %}
+    <div id="newBook">
+        Enter a New Book
+        <form action="/SubmitNewBookAbby" method="POST" >
+            ISBN: <input type="textbox" name="ISBN"/>
+            <button >Submit</button>
+        </form>
+    </div>
+    {% endif %}
+    <div class="container">
+
+        <div class="jumbotron" id="headerPic">
+            <img id="headerImage" src="{{ currentBook[8] }}" height="200" width="200"/>
+            <div class="container" id="info">
+                <form action="/RemoveBookAbby" method="POST" >
+                <div id="bookID"><input id="bID" name="bID" type="textbox" value="{{currentBook[0]}}" /></div>
+                <div id="title">{{currentBook[1]}}</div>
+                <div id="author">{{currentBook[2]}}</div>
+                <div id="format">{{currentBook[3]}}</div>
+                <div id="isbn">{{currentBook[4]}}</div>
+                <div id="publisher">{{currentBook[7]}}</div>
+                {% if getPassword %}
+                    <div id="password">Delete Password: <input id="password" name="password" type="textbox" /></div>
+                    <button id="deleteButton">Delete</button>
+                {% endif %}
+                </form>
+                {% if not getPassword %}
+                <form action="/GetPasswordAbby" method="POST">
+                    <input id="deleteID" name="deleteID" type="textbox" value="{{currentBook[0]}}" />
+                    <button id="deleteButton">Delete</button>
+                </form>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <div class="row">
+        {% for i in bookData %}
+            {% if i.8|length > 0 %}
+            <img class="book_img" id="{{i.0}},{{i.1}},{{i.2}},{{i.3}},{{i.4}},{{i.7}}" src="{{i.8}}" onclick="changeHeader(this)" height="125" width="125" />
+            {% endif %}
+        {% endfor %}
+        </div>
+        <div class="row">
+            <table>
+                <thead>
+                    <th>cover</th>
+                    <th>title</th>
+                    <th>author</th>
+                    <th>format</th>
+                    <th>isbn</th>
+                    <th>publisher</th>
+                </thead>
+            {% for i in bookData %}
+                <tr>
+                    <td><img src="{{i.8}}" height="30" width="30" /></td>
+                    <td>{{i.1}}</td>
+                    <td>{{i.2}}</td>
+                    <td>{{i.3}}</td>
+                    <td>{{i.4}}</td>
+                    <td>{{i.7}}</td>
+                </tr>
+            {% endfor %}
+
+            </table>
+
+        </div>
+
+    </div>
+    </body>
+
+
+</html>

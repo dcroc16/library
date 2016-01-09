@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+    <head>
+    <style>
+        #video{
+
+          border:1px solid;
+        }
+
+    </style>
+    </head>
+    <body>
+     <h1>Notes about programming</h1>
+     <div id='content'>
+
+         {{ key }}
+
+         {% for i in data %}
+
+            {{i.0}} | {{ i.1}}
+
+
+         {% endfor %}
+
+     </div>
+     <script src="{{ url_for('static',filename='script.js')}}" ></script>
+    </body>
+
+</html>

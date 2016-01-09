@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Lexi.com</title>
+        <style>
+            img{
+                height: 650px;
+                width: 600px;
+            }
+            a{
+                text-decoration: none;
+            }
+            .button{
+                border: 1px solid #303030;
+                border-radius: 10px;
+                height: 75px;
+                width: 300px;
+                background-color: #FF7575;
+                font-size: 24px;
+                text-align: center;
+                padding-top: 30px;
+                padding-bottom: 0px;
+
+
+            }
+            .button:hover{
+                background-color: #FFACAC;
+            }
+            #picture{
+                border: 1px soid #303030;
+                display: inline;
+                float: right;
+            }
+            #sidebuttons{
+                border: 1px soid #303030;
+                display: inline;
+                float: left;
+            }
+            #big_wrapper{
+                width: 75%;
+                margin: 0 auto;
+                padding: 0;
+            }
+            body{
+                background-color: #CC6699;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id='big_wrapper'>
+        <div id='sidebuttons'>
+        <a href='/AllAboutMe'><div class='button' id='allaboutme'>All About Me</div></a>
+        <a href='/MakeYourOwnTree'><div class='button' id='makeyourowntree'>Make your own tree</div></a>
+        <a href='/MakeYourOwnPumpkin'><div class='button' id='makeyourownpumpkin'>Make your own pumpkin</div></a>
+        <a href='/PutMakeupOnMe'><div class='button' id='putmakuponme'>Put makup on me</div></a>
+
+        <a href='/DressUp'><div class='button' id='dressup'>Dress up</div></a>
+        <a href='Music'><div class='button' id='music'>Music</div></a>
+        </div>
+        <div id='picutre'>
+            <img src={{ url_for('static',filename='IMG_7011.JPG') }} id='lexipic' />
+        </div>
+        </div>
+    </body>
+</html>
